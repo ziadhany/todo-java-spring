@@ -22,7 +22,7 @@ public class TaskController {
     private TaskService taskService;
     @Operation(
             summary = "Fetch all tasks",
-            description = "fetches all plant entities and their data from data source")
+            description = "fetches all tasks")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation")
     })
@@ -33,26 +33,57 @@ public class TaskController {
         return ResponseEntity.ok(taskService.getAllTask());
     }
 
+    @Operation(
+            summary = "Fetch all tasks completed",
+            description = "fetches all tasks completed")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation")
+    })
     @GetMapping("/completed")
     public ResponseEntity<List<Task>> getAllCompletedTasks() {
         return ResponseEntity.ok(taskService.findAllCompletedTask());
     }
+
+    @Operation(
+            summary = "Fetch all tasks incomplete",
+            description = "fetches all tasks incomplete")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation")
+    })
     @GetMapping("/incomplete")
     public ResponseEntity<List<Task>> getAllIncompleteTasks() {
         return ResponseEntity.ok(taskService.findAllInCompleteTask());
     }
 
+    @Operation(
+            summary = "Create tasks",
+            description = "create tasks (incomplete) ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation")
+    })
     @PostMapping("/")
     public ResponseEntity<Task> createTask(@RequestBody Task task) {
         return ResponseEntity.ok(taskService.createNewTask(task));
     }
 
+    @Operation(
+            summary = "delete tasks",
+            description = "delete tasks")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation")
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> getAllTasks(@PathVariable Long id) {
         taskService.deleteTask(id);
         return ResponseEntity.ok(true);
     }
 
+    @Operation(
+            summary = "update tasks",
+            description = "update tasks")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation")
+    })
     @PutMapping("/{id}")
     public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task task) {
         task.setId(id);
